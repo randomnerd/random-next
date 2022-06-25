@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  // referentialIntegrity = "prisma"
+}
+
+model Team {
+  id      String  @id @default(uuid()) @db.Uuid
+  name    String
+  wins    Int     @default(0)
+  matches Int     @default(0)
+  games   Game[]
+  scores  Score[]
+
+  @@map("teams")
+}
+
+model Word {
+  id         String     @id @default(uuid()) @db.Uuid
+  value      String
+  guessed    Int        @default(0)
+  skipped    Int        @default(0)
+  categories Category[]
+
+  @@map("words")
+}
+
+model Category {
+  id      String @id @default(uuid()) @db.Uuid
+  name    String
+  guessed Int    @default(0)
+  skipped Int    @default(0)
+  words   Word[]
+
+  @@map("categories")
+}
+
+enum GameStatus {
+  NEW
+  STARTED
+  FINISHED
+
+  @@map("game_status")
+}
+
+model Game {
+  id     String     @id @default(uuid()) @db.Uuid
+  teams  Team[]
+  round  Int        @default(0)
+  turn   Int        @default(0)
+  status GameStatus @default(NEW)
+  scores Score[]
+
+  @@map("games")
+}
+
+model Score {
+  id      String @id @default(uuid()) @db.Uuid
+  guessed Int    @default(0)
+  skipped Int    @default(0)
+  team    Team   @relation(fields: [teamId], references: [id])
+  teamId  String @db.Uuid
+  game    Game   @relation(fields: [gameId], references: [id])
+  gameId  String @db.Uuid
+  round   Int    @default(0)
+
+  @@map("scores")
+}

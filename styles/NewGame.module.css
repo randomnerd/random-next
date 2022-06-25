@@ -1,0 +1,20 @@
+.checkbox {
+    margin: 1em;
+    display: block !important;
+  }
+
+  .checkbox > label:before {
+    /* top: 5px !important; */
+    height: 2.2em !important;
+    width: 4.25em !important;
+  }
+
+  .checkbox > label:after {
+    /* top: 5px !important; */
+    height: 2.2em !important;
+    width: 2.2em !important;
+  }
+
+  .checkbox.checked > label:after {
+    left: 2.5em !important;
+  }
