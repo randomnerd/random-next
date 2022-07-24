@@ -2,21 +2,27 @@ import React from "react";
 import Link from 'next/link';
 import type { NextPage } from 'next';
 import styles from '../styles/Home.module.css';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
+import { EuiButton, EuiFlexGroup, EuiFlexItem } from '@elastic/eui';
 
 
 const Home: NextPage = () => (
-  <Button.Group vertical fluid>
-    <Link href="/newgame" passHref>
-      <Button primary className={styles.Button} size="big">New game</Button>
-    </Link>
-    <Link href="/teams" passHref>
-      <Button className={styles.Button} size="big">Teams</Button>
-    </Link>
-    <Link href="/words" passHref>
-      <Button className={styles.Button} size="big">Words &amp; categories</Button>
-    </Link>
-  </Button.Group>
+  <EuiFlexGroup
+    gutterSize="m"
+    direction="column"
+  >
+    <EuiFlexItem>
+      {/* <Link href="/newgame">New game</Link> */}
+        <Link href="/newgame" passHref>
+          <EuiButton fill>xx</EuiButton>
+        </Link>
+    </EuiFlexItem>
+    <EuiFlexItem grow={true}>
+      <EuiButton fullWidth href="/teams">Teams</EuiButton>
+    </EuiFlexItem>
+    <EuiFlexItem grow={true}>
+      <EuiButton fullWidth href="/words">Words &amp; categories</EuiButton>
+    </EuiFlexItem>
+  </EuiFlexGroup>
 );
 
 
